@@ -11,9 +11,9 @@ import com.huawei.exam.ReturnCodeEnum;
 
 
 /**
- * <p>Title: ´ı¿¼ÉúÊµÏÖÀà</p>
- * ¸÷·½·¨°´ÒªÇó·µ»Ø£¬³ÌĞò¿â»á×é×°±¨ÎÄÊä³ö
- * ÏµÍ³Ìá¹©ÁË3¸öÊä³ö½Ó¿Ú£¬ÔÚOpResultÀàÖĞ¶¨Òå£¬Çë¿¼ÉúÏÈÔÄ¶Á¶¨Òå¡£
+ * <p>Title: å¾…è€ƒç”Ÿå®ç°ç±»</p>
+ * å„æ–¹æ³•æŒ‰è¦æ±‚è¿”å›ï¼Œç¨‹åºåº“ä¼šç»„è£…æŠ¥æ–‡è¾“å‡º
+ * ç³»ç»Ÿæä¾›äº†3ä¸ªè¾“å‡ºæ¥å£ï¼Œåœ¨OpResultç±»ä¸­å®šä¹‰ï¼Œè¯·è€ƒç”Ÿå…ˆé˜…è¯»å®šä¹‰ã€‚
  *
  * <p>Description: </p>
  *
@@ -27,8 +27,8 @@ import com.huawei.exam.ReturnCodeEnum;
 public class ChargeImpl {
 
 
-    // ±ØĞëÌá¹©ÎŞ²ÎÊı¹¹Ôìº¯Êı£¬¿¼Éú¿ÉÔÚº¯ÊıÌåÖĞ¸ù¾İĞèÒªÔö¼Ó³õÊ¼»¯´úÂë
-    // ³ÌĞò¿âÖĞ»áÇÒÖ»»áÉú³ÉÒ»¸öChargeImplÊµÀı£¬²¢ÔÚÕû¸ö½ø³ÌÉúÃüÖÜÆÚÖĞÒ»Ö±Ê¹ÓÃÕâ¸öÊµÀı
+    // å¿…é¡»æä¾›æ— å‚æ•°æ„é€ å‡½æ•°ï¼Œè€ƒç”Ÿå¯åœ¨å‡½æ•°ä½“ä¸­æ ¹æ®éœ€è¦å¢åŠ åˆå§‹åŒ–ä»£ç 
+    // ç¨‹åºåº“ä¸­ä¼šä¸”åªä¼šç”Ÿæˆä¸€ä¸ªChargeImplå®ä¾‹ï¼Œå¹¶åœ¨æ•´ä¸ªè¿›ç¨‹ç”Ÿå‘½å‘¨æœŸä¸­ä¸€ç›´ä½¿ç”¨è¿™ä¸ªå®ä¾‹
 	List<ChargeLogInfo> list ;
 	//List<DistanceInfo> distanceInfoList ;
 	
@@ -38,10 +38,10 @@ public class ChargeImpl {
     }
 
     /**
-     * ¿¼ÉúĞèÒªÊµÏÖµÄ½Ó¿Ú
-     * rÃüÁî½Ó¿Ú£¬ÊµÏÖÏµÍ³µÄ³õÊ¼»¯
+     * è€ƒç”Ÿéœ€è¦å®ç°çš„æ¥å£
+     * rå‘½ä»¤æ¥å£ï¼Œå®ç°ç³»ç»Ÿçš„åˆå§‹åŒ–
      *
-     * @return OpResult£º´¦Àí½á¹û
+     * @return OpResultï¼šå¤„ç†ç»“æœ
      */
     public OpResult opReset() {
     	list.clear();
@@ -51,26 +51,26 @@ public class ChargeImpl {
 
 
     /**
-     * ¿¼ÉúĞèÒªÊµÏÖµÄ½Ó¿Ú
-     * qÃüÁî½Ó¿Ú£¬ÊµÏÖ¿Û·ÑÈÕÖ¾µÄ²éÑ¯¹¦ÄÜ
+     * è€ƒç”Ÿéœ€è¦å®ç°çš„æ¥å£
+     * qå‘½ä»¤æ¥å£ï¼Œå®ç°æ‰£è´¹æ—¥å¿—çš„æŸ¥è¯¢åŠŸèƒ½
      *
-     * @param cardNo int   £º¿¨ºÅ
-     * @param startHour int£º²éÑ¯ÆğÊ¼Ê±¼äµÄĞ¡Ê±²¿·Ö
-     * @param startMin int £º²éÑ¯ÆğÊ¼Ê±¼äµÄ·ÖÖÓ²¿·Ö
-     * @param endHour int  £º²éÑ¯½áÊøÊ±¼äµÄĞ¡Ê±²¿·Ö
-     * @param endMin int   £º²éÑ¯½áÊøÊ±¼äµÄ·ÖÖÓ²¿·Ö
+     * @param cardNo int   ï¼šå¡å·
+     * @param startHour intï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param startMin int ï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
+     * @param endHour int  ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param endMin int   ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
      *
-     * @return OpResult£º´¦Àí½á¹û
+     * @return OpResultï¼šå¤„ç†ç»“æœ
      */
     public OpResult opQuery(int cardNo, int startHour, int startMin,
                             int endHour, int endMin) {
 
-        //²éÑ¯³É¹¦Çë¿¼Éúµ÷ÓÃOpResultÀàµÄ½Ó¿ÚOpResult createOpResult(ReturnCodeEnum returnCode, ChargeLogInfo[] logs);
+        //æŸ¥è¯¢æˆåŠŸè¯·è€ƒç”Ÿè°ƒç”¨OpResultç±»çš„æ¥å£OpResult createOpResult(ReturnCodeEnum returnCode, ChargeLogInfo[] logs);
     	if(cardNo >9 ||cardNo <0 || timeJudge(startHour,startMin,endHour,endMin)){
     		return OpResult.createOpResult(ReturnCodeEnum.E01);
     	}else{
     		/*
-    		 * list½øĞĞÅÅĞò£¬°´ÕÕcardNoºÍ"endHour+endMin"
+    		 * listè¿›è¡Œæ’åºï¼ŒæŒ‰ç…§cardNoå’Œ"endHour+endMin"
     		 */
     		Collections.sort(list, new Comparator<ChargeLogInfo>(){
     			
@@ -86,64 +86,70 @@ public class ChargeImpl {
     			}
     		});
   
-        	
+        	ChargeLogInfo[] logs = new  ChargeLogInfo[list.size()];
+        			
         	int newStartTime = normalizationTime(startHour,startMin);
     		int newEndTime = normalizationTime(endHour,endMin);
     		
     		if(cardNo == 0){
     			boolean flag = true;
+    			int i = 0;
     			for(ChargeLogInfo loginfo:list){
-    				//loginfo ¶ÔÏóµÄ³öÕ¾Ê±¼ä
+    				//loginfo å¯¹è±¡çš„å‡ºç«™æ—¶é—´
     				int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
     				if(loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime){	
-    					System.out.println(loginfo.toString());
-    					flag = false;
-    					return OpResult.createOpResult(ReturnCodeEnum.I20);
+    					logs[i] = loginfo;
+    					++i;
+    					flag = false;	
     				}
     			}
     			if(flag)
     				return OpResult.createOpResult(ReturnCodeEnum.E21);
+    			return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
     		}else{
        			boolean flag = true;
     			for(ChargeLogInfo loginfo:list){
     				int loginfoCardNo = loginfo.getCardNo();
     				int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
+    				int i = 0;
     				if(loginfoCardNo == cardNo && loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime){	
-    					System.out.println(loginfo.toString());
+    					//System.out.println(loginfo.toString());
+    					logs[i] = loginfo;
+    					++i;
     					flag = false;
-    					return OpResult.createOpResult(ReturnCodeEnum.I20);
     				}
     			}
     			if(flag)
     				return OpResult.createOpResult(ReturnCodeEnum.E21);
+				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
     		}
     	}
    
-        return OpResult.createOpResult(ReturnCodeEnum.E01);
+        //return OpResult.createOpResult(ReturnCodeEnum.E01);
     }
 
 
     /**
-     * ¿¼ÉúĞèÒªÊµÏÖµÄ½Ó¿Ú
-     * cÃüÁî½Ó¿Ú£¬ÊµÏÖÇëÇó¿Û·ÑµÄ¹¦ÄÜ
+     * è€ƒç”Ÿéœ€è¦å®ç°çš„æ¥å£
+     * cå‘½ä»¤æ¥å£ï¼Œå®ç°è¯·æ±‚æ‰£è´¹çš„åŠŸèƒ½
      *
-     * @param  chargeCmd ChargeCmdInfo:²éÑ¯ÃüÁîµÄÏûÏ¢Ìå
-     * @param  distances DistanceInfo []:ÏàÁÚÕ¾µã¼äÀï³Ì±í£»
-     *                                 (ÏµÍ³ÒÑÄÚÖÃ£¬¿¼Éú¸ù¾İ´ËÊı×éĞÅÏ¢£¬×ÔĞĞÉè¼ÆËã·¨»ñÈ¡²»Í¬Õ¾Ö®¼äµÄ¾àÀë£©
-     *                                 ÏàÁÚÕ¾µã¼äÀï³Ì±íĞÅÏ¢¾ÙÀı£º
+     * @param  chargeCmd ChargeCmdInfo:æŸ¥è¯¢å‘½ä»¤çš„æ¶ˆæ¯ä½“
+     * @param  distances DistanceInfo []:ç›¸é‚»ç«™ç‚¹é—´é‡Œç¨‹è¡¨ï¼›
+     *                                 (ç³»ç»Ÿå·²å†…ç½®ï¼Œè€ƒç”Ÿæ ¹æ®æ­¤æ•°ç»„ä¿¡æ¯ï¼Œè‡ªè¡Œè®¾è®¡ç®—æ³•è·å–ä¸åŒç«™ä¹‹é—´çš„è·ç¦»ï¼‰
+     *                                 ç›¸é‚»ç«™ç‚¹é—´é‡Œç¨‹è¡¨ä¿¡æ¯ä¸¾ä¾‹ï¼š
      *                                 ("S6", "S5", 6)
      *                                 ("S3", "S4", 3)
      *                                 ("S1", "S2", 4)
      *                                 ("S4", "S5", 3)
      *                                 ("S3", "S2", 1)
      *
-     * @return OpResult£º´¦Àí½á¹û
+     * @return OpResultï¼šå¤„ç†ç»“æœ
      */
     public OpResult opCharge(ChargeCmdInfo ci, DistanceInfo[] distances) {
 
-        //¿Û·Ñ³É¹¦,Çë¿¼Éúµ÷ÓÃOpResultÀàµÄ½Ó¿ÚOpResult    createOpResult(ReturnCodeEnum returnCode, int cardNo, int moneyLeft);
+        //æ‰£è´¹æˆåŠŸ,è¯·è€ƒç”Ÿè°ƒç”¨OpResultç±»çš„æ¥å£OpResult    createOpResult(ReturnCodeEnum returnCode, int cardNo, int moneyLeft);
     	
-    	//Ê±¼ä¸ñÊ½´íÎó
+    	//æ—¶é—´æ ¼å¼é”™è¯¯
     	if(ci.getInHour()<0||ci.getInHour()>23||ci.getOutHour()<0||ci.getOutHour()>23||
     		ci.getInMinute()<0||ci.getInMinute()>59||ci.getOutMinute()<0||ci.getOutMinute()>59)
     	{
@@ -155,7 +161,7 @@ public class ChargeImpl {
     	
     	if (( ci.getInHour()>ci.getOutHour() ) || (ci.getInHour()==ci.getOutHour() && ci.getInMinute()>ci.getOutMinute())){
     		
-    	//Ê±¼ä¹ØÏµ´íÎó
+    	//æ—¶é—´å…³ç³»é”™è¯¯
     		this.getLogInfo(ci, 0, false);
     		return OpResult.createOpResult(ReturnCodeEnum.E02);
     		
@@ -172,12 +178,12 @@ public class ChargeImpl {
 				}
 			}
 		}
-		if(bResult!=2){ //Õ¾µãÒì³£
+		if(bResult!=2){ //ç«™ç‚¹å¼‚å¸¸
 			this.getLogInfo(ci, 0, false);
 			return OpResult.createOpResult(ReturnCodeEnum.I10,ci.getCardNo(),ci.getCardMoney());
 		}
     	
-		//¼ÆËãÁ½µØÖ®¼äµÄ¾àÀë
+		//è®¡ç®—ä¸¤åœ°ä¹‹é—´çš„è·ç¦»
 		
 		int dis[]={4,1,3,2,6},distance=0;
 		int in1=Integer.parseInt(ci.getInStation().substring(1));
@@ -196,18 +202,18 @@ public class ChargeImpl {
 		CardTypeEnum B=CardTypeEnum.B;
 //		CardTypeEnum C=CardTypeEnum.C;
 		
-		//½ø³öÕ¾ÎªÍ¬Ò»µØµã
+		//è¿›å‡ºç«™ä¸ºåŒä¸€åœ°ç‚¹
 		if(in1 == in2){
 			int time_interval=(ci.getOutHour()-ci.getInHour())*60+ci.getOutMinute()-ci.getInMinute();
 			
 			if(time_interval<=30){
 				
 				if(ci.getCardType()==A){ 
-					//1.Í¬Ò»µØµã£¬Ê±¼ä¼ä¸ô<=30min£¬µ¥³ÌÆ±£¬¿Û·Ñ³É¹¦
+					//1.åŒä¸€åœ°ç‚¹ï¼Œæ—¶é—´é—´éš”<=30minï¼Œå•ç¨‹ç¥¨ï¼Œæ‰£è´¹æˆåŠŸ
 					this.getLogInfo(ci, ci.getCardMoney(), true);
 					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
 				}
-				//2.Í¬Ò»µØµã£¬Ê±¼ä¼ä¸ô<=30min£¬·Çµ¥³ÌÆ±£¬¿Û·ÑÎª0
+				//2.åŒä¸€åœ°ç‚¹ï¼Œæ—¶é—´é—´éš”<=30minï¼Œéå•ç¨‹ç¥¨ï¼Œæ‰£è´¹ä¸º0
 				this.getLogInfo(ci, 0, true);
 				if(ci.getCardMoney()>=20){
 					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),ci.getCardMoney());
@@ -217,7 +223,7 @@ public class ChargeImpl {
 			}
 			else{
 				
-				if(ci.getCardType()==A){ //3.Í¬Ò»µØµã£¬Ê±¼ä¼ä¸ô>30min£¬µ¥³ÌÆ±£¬¿Û·Ñ³É¹¦/Ê§°Ü
+				if(ci.getCardType()==A){ //3.åŒä¸€åœ°ç‚¹ï¼Œæ—¶é—´é—´éš”>30minï¼Œå•ç¨‹ç¥¨ï¼Œæ‰£è´¹æˆåŠŸ/å¤±è´¥
 					
 					if(ci.getCardMoney()>=3){
 						this.getLogInfo(ci, ci.getCardMoney(), true);
@@ -229,7 +235,7 @@ public class ChargeImpl {
 						return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
 					}
 				}
-				else{//4.Í¬Ò»µØµã£¬Ê±¼ä¼ä¸ô>30min£¬·Çµ¥³ÌÆ±£¬¿Û·Ñ³É¹¦/ÌáÊ¾Óà¶î²»×ã/Ê§°Ü
+				else{//4.åŒä¸€åœ°ç‚¹ï¼Œæ—¶é—´é—´éš”>30minï¼Œéå•ç¨‹ç¥¨ï¼Œæ‰£è´¹æˆåŠŸ/æç¤ºä½™é¢ä¸è¶³/å¤±è´¥
 					int remain=ci.getCardMoney()-3;
 					//this.getLogInfo(ci, 0, false);
 					return return_result(remain,3,ci);
@@ -240,16 +246,16 @@ public class ChargeImpl {
 			}
 			
 		}
-		//½ø³öÕ¾Îª²»Í¬µÄµØµã
+		//è¿›å‡ºç«™ä¸ºä¸åŒçš„åœ°ç‚¹
 		else{
-			//¼ÆËã»ù±¾Æ±¼Û
+			//è®¡ç®—åŸºæœ¬ç¥¨ä»·
 			int base_price;
 			if(distance<=3) base_price=2;
 			else if(distance<=5) base_price=3;
 			else if(distance<=10) base_price=4;
 			else	base_price=5;
 			
-			if(ci.getCardType()==A){ //5.²»Í¬µØµã£¬µ¥³ÌÆ±£¬¿Û·Ñ³É¹¦/Ê§°Ü
+			if(ci.getCardType()==A){ //5.ä¸åŒåœ°ç‚¹ï¼Œå•ç¨‹ç¥¨ï¼Œæ‰£è´¹æˆåŠŸ/å¤±è´¥
 				
 				if(ci.getCardMoney()>=base_price)
 				{
@@ -263,12 +269,12 @@ public class ChargeImpl {
 			}
 			else{ 
 				if((ci.getInHour()>=7 && ci.getInHour()<9) || (ci.getInHour()*60+ci.getInMinute()>=16*60+30 && ci.getInHour()*60+ci.getInMinute()<18*60+30)){
-					//6.²»Í¬µØµã£¬·Çµ¥³ÌÆ±£¬½øÕ¾Ê±¼äÎª[7:00,9:00£©¡¢[16:30,18:30)Ê±£¬ÎŞÈÎºÎÓÅ»İ
+					//6.ä¸åŒåœ°ç‚¹ï¼Œéå•ç¨‹ç¥¨ï¼Œè¿›ç«™æ—¶é—´ä¸º[7:00,9:00ï¼‰ã€[16:30,18:30)æ—¶ï¼Œæ— ä»»ä½•ä¼˜æƒ 
 					int remain=ci.getCardMoney()-base_price;
 					return return_result(remain,base_price,ci);
 				}
 				else if((ci.getInHour()>=10 && ci.getInHour()<11) || (ci.getInHour()>=15 && ci.getInHour()<16)){
-					//7.²»Í¬µØµã£¬·Çµ¥³ÌÆ±£¬½øÕ¾Ê±¼äÎª[10:00,11:00£©¡¢[15:00,16:00£©Ê±£¬5ÕÛÓÅ»İ
+					//7.ä¸åŒåœ°ç‚¹ï¼Œéå•ç¨‹ç¥¨ï¼Œè¿›ç«™æ—¶é—´ä¸º[10:00,11:00ï¼‰ã€[15:00,16:00ï¼‰æ—¶ï¼Œ5æŠ˜ä¼˜æƒ 
 					int discount_price=(int) Math.floor(0.5*base_price);
 					int remain=ci.getCardMoney()-discount_price;
 					return return_result(remain,discount_price,ci);
@@ -276,13 +282,13 @@ public class ChargeImpl {
 				}
 				else{
 					if(ci.getCardType()==B){
-						//8.²»Í¬µØµã£¬ÀÏÄê¿¨£¬Õı³£Ê±¼ä£¬9ÕÛÓÅ»İ
+						//8.ä¸åŒåœ°ç‚¹ï¼Œè€å¹´å¡ï¼Œæ­£å¸¸æ—¶é—´ï¼Œ9æŠ˜ä¼˜æƒ 
 						int discount_price=(int) Math.floor(0.9*base_price);
 						int remain=ci.getCardMoney()-discount_price;
 						return return_result(remain,discount_price,ci);
 					}
 					else{
-						//9.²»Í¬µØµã£¬ÆÕÍ¨¿¨£¬Õı³£Ê±¼ä£¬ÎŞÓÅ»İ
+						//9.ä¸åŒåœ°ç‚¹ï¼Œæ™®é€šå¡ï¼Œæ­£å¸¸æ—¶é—´ï¼Œæ— ä¼˜æƒ 
 						int remain=ci.getCardMoney()-base_price;
 						return return_result(remain,base_price,ci);
 					}
@@ -295,7 +301,7 @@ public class ChargeImpl {
 		}
     }
     
-  //¸ù¾İÓà¶î²»Í¬£¬·µ»Ø²»Í¬µÄ½á¹û
+  //æ ¹æ®ä½™é¢ä¸åŒï¼Œè¿”å›ä¸åŒçš„ç»“æœ
     public OpResult return_result(int remain,int chargeMoney,ChargeCmdInfo ci) {
     	
 		if(remain>=20){
@@ -312,9 +318,9 @@ public class ChargeImpl {
     
     /**
      * 
-     * @param ci cmdÀà
-     * @param chargeMoney ÊÕ·ÑÇ®
-     * @param isCharged ÊÇ·ñÊÕ·Ñ³É¹¦
+     * @param ci cmdç±»
+     * @param chargeMoney æ”¶è´¹é’±
+     * @param isCharged æ˜¯å¦æ”¶è´¹æˆåŠŸ
      */
     public void getLogInfo(ChargeCmdInfo ci,int chargeMoney,boolean isCharged){
     	
@@ -325,7 +331,7 @@ public class ChargeImpl {
     	list.add(cLogInfo);
     	
     	if(list.size()>10){
-    		//ListÖĞÓĞ11¸ö
+    		//Listä¸­æœ‰11ä¸ª
     		list.remove(0);
     	}
     	//return cLogInfo;
@@ -333,20 +339,20 @@ public class ChargeImpl {
     	
     }
     /**
-     * ÅĞ¶ÏÊ±¼ä²ÎÊıÊÇ·ñÓĞÒì³£
+     * åˆ¤æ–­æ—¶é—´å‚æ•°æ˜¯å¦æœ‰å¼‚å¸¸
      *
-     * @param startHour int£º²éÑ¯ÆğÊ¼Ê±¼äµÄĞ¡Ê±²¿·Ö
-     * @param startMin int £º²éÑ¯ÆğÊ¼Ê±¼äµÄ·ÖÖÓ²¿·Ö
-     * @param endHour int  £º²éÑ¯½áÊøÊ±¼äµÄĞ¡Ê±²¿·Ö
-     * @param endMin int   £º²éÑ¯½áÊøÊ±¼äµÄ·ÖÖÓ²¿·Ö
+     * @param startHour intï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param startMin int ï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
+     * @param endHour int  ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param endMin int   ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
      *
      * @return true or false;
      */
     public boolean timeJudge(int startHour, int startMin,
             int endHour, int endMin){
     	
-    	int newStartTime = Integer.parseInt("startHour"+"startMin");
-		int newEndTime = Integer.parseInt("endHour"+"endMin");
+    	int newStartTime = normalizationTime(startHour,startMin);
+		int newEndTime = normalizationTime(endHour,endMin);
 	
     	if(newStartTime>newEndTime || startHour<0 || startHour>23 || startMin<0 || startMin>59|| endHour<0 || endHour>23 || endMin<0 || endMin>59)
     		return true;
@@ -355,12 +361,12 @@ public class ChargeImpl {
     	
     }
     /**
-     * ÅĞ¶ÏÊ±¼ä²ÎÊıÊÇ·ñÓĞÒì³£
+     * åˆ¤æ–­æ—¶é—´å‚æ•°æ˜¯å¦æœ‰å¼‚å¸¸
      *
-     * @param startHour int£º²éÑ¯ÆğÊ¼Ê±¼äµÄĞ¡Ê±²¿·Ö
-     * @param startMin int £º²éÑ¯ÆğÊ¼Ê±¼äµÄ·ÖÖÓ²¿·Ö
-     * @param endHour int  £º²éÑ¯½áÊøÊ±¼äµÄĞ¡Ê±²¿·Ö
-     * @param endMin int   £º²éÑ¯½áÊøÊ±¼äµÄ·ÖÖÓ²¿·Ö
+     * @param startHour intï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param startMin int ï¼šæŸ¥è¯¢èµ·å§‹æ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
+     * @param endHour int  ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„å°æ—¶éƒ¨åˆ†
+     * @param endMin int   ï¼šæŸ¥è¯¢ç»“æŸæ—¶é—´çš„åˆ†é’Ÿéƒ¨åˆ†
      *
      * @return true or false;
      */ 
