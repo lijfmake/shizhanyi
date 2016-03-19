@@ -167,9 +167,9 @@ public class ChargeImpl {
     		
     	}
     	
-		String[] strArray ={"S1","S2","S3","S4","S5","S6"};
+		String[] stationArray ={"S1","S2","S3","S4","S5","S6"};
     	byte bResult = 0;
-		for (String temp : strArray) {
+		for (String temp : stationArray) {
 			if (temp.equals(ci.getInStation()) || temp.equals(ci.getOutStation())) {
 				bResult += 1;
 				if(temp.equals(ci.getInStation()) && temp.equals(ci.getOutStation())){
@@ -186,120 +186,128 @@ public class ChargeImpl {
 		//计算两地之间的距离
 		
 		int dis[]={4,1,3,2,6},distance=0;
-		int in1=Integer.parseInt(ci.getInStation().substring(1));
-		int in2=Integer.parseInt(ci.getOutStation().substring(1));
-		if(in1>in2){
-			int int_temp=in1;
-			in1=in2;
-			in2=int_temp;
+		int inStation=Integer.parseInt(ci.getInStation().substring(1));
+		int outStation=Integer.parseInt(ci.getOutStation().substring(1));
+		if(inStation>outStation){
+			int int_temp=inStation;
+			inStation=outStation;
+			outStation=int_temp;
 		}
-		for(int i=in1-1;i<in2-1;i++){
+		for(int i=inStation-1;i<outStation-1;i++){
 			distance=distance+dis[i];
 		}
     	
 		
-		CardTypeEnum A=CardTypeEnum.A;
-		CardTypeEnum B=CardTypeEnum.B;
+		//CardTypeEnum A=CardTypeEnum.A;
+		//CardTypeEnum B=CardTypeEnum.B;
 //		CardTypeEnum C=CardTypeEnum.C;
 		
 		//进出站为同一地点
-		if(in1 == in2){
-			int time_interval=(ci.getOutHour()-ci.getInHour())*60+ci.getOutMinute()-ci.getInMinute();
-			
-			if(time_interval<=30){
-				
-				if(ci.getCardType()==A){ 
-					//1.同一地点，时间间隔<=30min，单程票，扣费成功
-					this.getLogInfo(ci, ci.getCardMoney(), true);
-					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
-				}
-				//2.同一地点，时间间隔<=30min，非单程票，扣费为0
-				this.getLogInfo(ci, 0, true);
-				if(ci.getCardMoney()>=20){
-					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),ci.getCardMoney());
-				}
-				return OpResult.createOpResult(ReturnCodeEnum.I12,ci.getCardNo(),ci.getCardMoney());
-				
-			}
-			else{
-				
-				if(ci.getCardType()==A){ //3.同一地点，时间间隔>30min，单程票，扣费成功/失败
-					
-					if(ci.getCardMoney()>=3){
-						this.getLogInfo(ci, ci.getCardMoney(), true);
-						return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
-						
-					}
-					else{
-						this.getLogInfo(ci, 0, false);
-						return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
-					}
-				}
-				else{//4.同一地点，时间间隔>30min，非单程票，扣费成功/提示余额不足/失败
-					int remain=ci.getCardMoney()-3;
-					//this.getLogInfo(ci, 0, false);
-					return return_result(remain,3,ci);
-					
-				}
-
-				
-			}
+		if(inStation == outStation){
+			return sameStation(ci);
 			
 		}
 		//进出站为不同的地点
 		else{
-			//计算基本票价
-			int base_price;
-			if(distance<=3) base_price=2;
-			else if(distance<=5) base_price=3;
-			else if(distance<=10) base_price=4;
-			else	base_price=5;
-			
-			if(ci.getCardType()==A){ //5.不同地点，单程票，扣费成功/失败
-				
-				if(ci.getCardMoney()>=base_price)
-				{
-					this.getLogInfo(ci, ci.getCardMoney(), true);
-					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
-				}else
-				{
-					this.getLogInfo(ci, 0, false);
-					return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
-				}
-			}
-			else{ 
-				if((ci.getInHour()>=7 && ci.getInHour()<9) || (ci.getInHour()*60+ci.getInMinute()>=16*60+30 && ci.getInHour()*60+ci.getInMinute()<18*60+30)){
-					//6.不同地点，非单程票，进站时间为[7:00,9:00）、[16:30,18:30)时，无任何优惠
-					int remain=ci.getCardMoney()-base_price;
-					return return_result(remain,base_price,ci);
-				}
-				else if((ci.getInHour()>=10 && ci.getInHour()<11) || (ci.getInHour()>=15 && ci.getInHour()<16)){
-					//7.不同地点，非单程票，进站时间为[10:00,11:00）、[15:00,16:00）时，5折优惠
-					int discount_price=(int) Math.floor(0.5*base_price);
-					int remain=ci.getCardMoney()-discount_price;
-					return return_result(remain,discount_price,ci);
-					
-				}
-				else{
-					if(ci.getCardType()==B){
-						//8.不同地点，老年卡，正常时间，9折优惠
-						int discount_price=(int) Math.floor(0.9*base_price);
-						int remain=ci.getCardMoney()-discount_price;
-						return return_result(remain,discount_price,ci);
-					}
-					else{
-						//9.不同地点，普通卡，正常时间，无优惠
-						int remain=ci.getCardMoney()-base_price;
-						return return_result(remain,base_price,ci);
-					}
-					
-				}
-				
-			}
+			return diffStation(ci, distance);
 			
 			
 		}
     }
+
+	public OpResult diffStation(ChargeCmdInfo ci, int distance ) {
+		//计算基本票价
+		int base_price;
+		if(distance<=3) base_price=2;
+		else if(distance<=5) base_price=3;
+		else if(distance<=10) base_price=4;
+		else	base_price=5;
+		
+		if(ci.getCardType()==CardTypeEnum.A){ //5.不同地点，单程票，扣费成功/失败
+			
+			if(ci.getCardMoney()>=base_price)
+			{
+				this.getLogInfo(ci, ci.getCardMoney(), true);
+				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
+			}else
+			{
+				this.getLogInfo(ci, 0, false);
+				return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
+			}
+		}
+		else{ 
+			if((ci.getInHour()>=7 && ci.getInHour()<9) || (ci.getInHour()*60+ci.getInMinute()>=16*60+30 && ci.getInHour()*60+ci.getInMinute()<18*60+30)){
+				//6.不同地点，非单程票，进站时间为[7:00,9:00）、[16:30,18:30)时，无任何优惠
+				int remain=ci.getCardMoney()-base_price;
+				return return_result(remain,base_price,ci);
+			}
+			else if((ci.getInHour()>=10 && ci.getInHour()<11) || (ci.getInHour()>=15 && ci.getInHour()<16)){
+				//7.不同地点，非单程票，进站时间为[10:00,11:00）、[15:00,16:00）时，5折优惠
+				int discount_price=(int) Math.floor(0.5*base_price);
+				int remain=ci.getCardMoney()-discount_price;
+				return return_result(remain,discount_price,ci);
+				
+			}
+			else{
+				if(ci.getCardType()==CardTypeEnum.B){
+					//8.不同地点，老年卡，正常时间，9折优惠
+					int discount_price=(int) Math.floor(0.9*base_price);
+					int remain=ci.getCardMoney()-discount_price;
+					return return_result(remain,discount_price,ci);
+				}
+				else{
+					//9.不同地点，普通卡，正常时间，无优惠
+					int remain=ci.getCardMoney()-base_price;
+					return return_result(remain,base_price,ci);
+				}
+				
+			}
+			
+		}
+	}
+
+	public OpResult sameStation(ChargeCmdInfo ci) {
+		int time_interval=(ci.getOutHour()-ci.getInHour())*60+ci.getOutMinute()-ci.getInMinute();
+		
+		if(time_interval<=30){
+			
+			if(ci.getCardType()==CardTypeEnum.A){ 
+				//1.同一地点，时间间隔<=30min，单程票，扣费成功
+				this.getLogInfo(ci, ci.getCardMoney(), true);
+				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
+			}
+			//2.同一地点，时间间隔<=30min，非单程票，扣费为0
+			this.getLogInfo(ci, 0, true);
+			if(ci.getCardMoney()>=20){
+				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),ci.getCardMoney());
+			}
+			return OpResult.createOpResult(ReturnCodeEnum.I12,ci.getCardNo(),ci.getCardMoney());
+			
+		}
+		else{
+			
+			if(ci.getCardType()==CardTypeEnum.A){ //3.同一地点，时间间隔>30min，单程票，扣费成功/失败
+				
+				if(ci.getCardMoney()>=3){
+					this.getLogInfo(ci, ci.getCardMoney(), true);
+					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
+					
+				}
+				else{
+					this.getLogInfo(ci, 0, false);
+					return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
+				}
+			}
+			else{//4.同一地点，时间间隔>30min，非单程票，扣费成功/提示余额不足/失败
+				int remain=ci.getCardMoney()-3;
+				//this.getLogInfo(ci, 0, false);
+				return return_result(remain,3,ci);
+				
+			}
+
+			
+		}
+	}
     
   //根据余额不同，返回不同的结果
     public OpResult return_result(int remain,int chargeMoney,ChargeCmdInfo ci) {

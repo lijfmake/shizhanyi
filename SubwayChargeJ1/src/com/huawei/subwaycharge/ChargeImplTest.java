@@ -16,7 +16,7 @@ import com.huawei.subwaycharge.OpResult;
 import junit.framework.Assert;
 
 public class ChargeImplTest {
-	ChargeImpl1 chargeImpl = new ChargeImpl1();;
+	ChargeImpl chargeImpl = new ChargeImpl();;
 	DistanceInfo dis1=new DistanceInfo("S3","S4",3);
 	DistanceInfo dis2=new DistanceInfo("S6","S5",6);
 	DistanceInfo dis3=new DistanceInfo("S1","S2",4);
