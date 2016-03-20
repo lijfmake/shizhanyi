@@ -168,6 +168,7 @@ public class ChargeImpl {
 				ChargeLogInfo[] logs = new ChargeLogInfo[i];
 					boolean flag = handleCardNoEqualsElse(cardNo,list,logs,newStartTime,newEndTime);
 				if(flag)
+					
 					return OpResult.createOpResult(ReturnCodeEnum.E21);
 				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
 				}
