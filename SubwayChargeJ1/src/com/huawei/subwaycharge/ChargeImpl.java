@@ -35,7 +35,8 @@ public class ChargeImpl {
 //		if_Delete[i]=0;
 	//List<DistanceInfo> distanceInfoList ;
 	
-    public ChargeImpl() {
+    public ChargeImpl() 
+    {
     	list = new ArrayList<ChargeLogInfo>();
     	
     }
@@ -46,10 +47,12 @@ public class ChargeImpl {
      *
      * @return OpResult：处理结果
      */
-    public OpResult opReset() {
+    public OpResult opReset()
+    {
     	list.clear();
     	System.out.println("list clear");
-    	for(int i=0;i<10;i++){
+    	for(int i=0;i<10;i++)
+    	{
     		if_Delete[i]=0;
     		
     	}
@@ -63,7 +66,8 @@ public class ChargeImpl {
      *
      * @return OpResult：处理结果
      */
-    public OpResult opChargeBack(int cardNo) { 
+    public OpResult opChargeBack(int cardNo) 
+    { 
 //    	System.out.println("h命令接口");
     	
     	
@@ -72,18 +76,23 @@ public class ChargeImpl {
     	
 		sortList(list);
 		int number=0;
-		for(ChargeLogInfo loginfo:list){
-			if(loginfo.isCharged()==true){	//满足查询条件
+		for(ChargeLogInfo loginfo:list)
+		{
+			if(loginfo.isCharged()==true)
+			{	//满足查询条件
 				number++;
 			}
 		}
     	ChargeLogInfo[] logs = new  ChargeLogInfo[number];
-		if(cardNo == 0){
+		if(cardNo == 0)
+		{
 			boolean flag = H_handleCardNoEquals0(list,logs); 	
 			if(flag)
 				return OpResult.createOpResult(ReturnCodeEnum.E21);
 			return OpResult.createOpResult(ReturnCodeEnum.I30,logs);
-		}else{
+		}
+		else
+		{
    			boolean flag = H_handleCardNoEqualsElse(cardNo,list,logs);
 			if(flag)
 				return OpResult.createOpResult(ReturnCodeEnum.E21);
@@ -101,11 +110,15 @@ public class ChargeImpl {
      *
      * @return OpResult：处理结果
      */
-    public OpResult opDelete(int cardNo) { 
+    public OpResult opDelete(int cardNo)
+    { 
     	if_Delete[cardNo]=1;
-		if(cardNo == 0){
+		if(cardNo == 0)
+		{
 			return OpResult.createOpResult(ReturnCodeEnum.I22,cardNo,0);
-		}else{
+		}
+		else
+		{
 			return OpResult.createOpResult(ReturnCodeEnum.I22,cardNo,0);
 		}
     }
@@ -127,25 +140,32 @@ public class ChargeImpl {
             int endHour, int endMin) {
 
     		//查询成功请考生调用OpResult类的接口OpResult createOpResult(ReturnCodeEnum returnCode, ChargeLogInfo[] logs);
-    	if(timeAndCardNoJudge(cardNo,startHour,startMin,endHour,endMin)){
-    			return OpResult.createOpResult(ReturnCodeEnum.E01);
-    		}else if(timeJudge(startHour,startMin,endHour,endMin)){
-    			return OpResult.createOpResult(ReturnCodeEnum.E02);
-    		}else{
-				/*
-				* list进行排序，按照cardNo和endTime
-				*/
-				sortList(list);
-				//ChargeLogInfo[] logs = new  ChargeLogInfo[list.size()];
-					
-				int newStartTime = normalizationTime(startHour,startMin);
-				int newEndTime = normalizationTime(endHour,endMin);
+    	if(timeAndCardNoJudge(cardNo,startHour,startMin,endHour,endMin))
+    	{
+    		return OpResult.createOpResult(ReturnCodeEnum.E01);
+    	}
+    	else if(timeJudge(startHour,startMin,endHour,endMin))
+    	{
+    		return OpResult.createOpResult(ReturnCodeEnum.E02);
+    	}else
+    	{
+			/*
+			* list进行排序，按照cardNo和endTime
+			*/
+			sortList(list);
+			//ChargeLogInfo[] logs = new  ChargeLogInfo[list.size()];
 				
-				if(cardNo == 0){
+			int newStartTime = normalizationTime(startHour,startMin);
+			int newEndTime = normalizationTime(endHour,endMin);
+			
+			if(cardNo == 0)
+			{
 				int i = 0;
-				for(ChargeLogInfo loginfo:list){
+				for(ChargeLogInfo loginfo:list)
+				{
 					int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
-					if(loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime){	
+					if(loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime)
+					{	
 						++i;
 					}
 				}		
@@ -153,27 +173,34 @@ public class ChargeImpl {
 				
 				boolean cardFlag = handleCardNoEquals0(list,logs,newStartTime,newEndTime); 	
 				if(cardFlag)
+				{
 					return OpResult.createOpResult(ReturnCodeEnum.E21);
+				}
 				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
-				}else{
+			}
+			else
+			{
 				int i = 0;
-				for(ChargeLogInfo loginfo: list){
+				for(ChargeLogInfo loginfo: list)
+				{
 					//loginfo 对象的出站时间
 					int loginfoCardNo = loginfo.getCardNo();
 					int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
-					if(loginfoCardNo == cardNo && loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime){	
+					if(loginfoCardNo == cardNo && loginfoOutTime>= newStartTime && loginfoOutTime<= newEndTime)
+					{	
 						++i;
 					}
 				}
 				ChargeLogInfo[] logs = new ChargeLogInfo[i];
 					boolean flag = handleCardNoEqualsElse(cardNo,list,logs,newStartTime,newEndTime);
 				if(flag)
-					
+				{
 					return OpResult.createOpResult(ReturnCodeEnum.E21);
-				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
 				}
+				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
 			}
 		}
+	}
 
 
     /**
@@ -209,7 +236,8 @@ public class ChargeImpl {
 		
     	}
     	
-    	if (( ci.getInHour()>ci.getOutHour() ) || (ci.getInHour()==ci.getOutHour() && ci.getInMinute()>ci.getOutMinute())){
+    	if (( ci.getInHour()>ci.getOutHour() ) || (ci.getInHour()==ci.getOutHour() && ci.getInMinute()>ci.getOutMinute()))
+    	{
     		
     	//时间关系错误
     		this.getLogInfo(ci, 0, false);
@@ -228,7 +256,8 @@ public class ChargeImpl {
 				}
 			}
 		}
-		if(bResult!=2){ //站点异常
+		if(bResult!=2)
+		{ //站点异常
 			this.getLogInfo(ci, 0, false);
 			return OpResult.createOpResult(ReturnCodeEnum.I10,ci.getCardNo(),ci.getCardMoney());
 		}
@@ -238,34 +267,38 @@ public class ChargeImpl {
 		int dis[]={4,1,3,2,6},distance=0;
 		int inNum=Integer.parseInt(ci.getInStation().substring(1));
 		int outNum=Integer.parseInt(ci.getOutStation().substring(1));
-		if(inNum>outNum){
+		if(inNum>outNum)
+		{
 			int int_temp=inNum;
 			inNum=outNum;
 			outNum=int_temp;
 		}
-		for(int i=inNum-1;i<outNum-1;i++){
+		for(int i=inNum-1;i<outNum-1;i++)
+		{
 			distance=distance+dis[i];
 		}
     	
 		
-		//CardTypeEnum A=CardTypeEnum.A;
-		//CardTypeEnum B=CardTypeEnum.B;
-//		CardTypeEnum C=CardTypeEnum.C;
-		
 		//进出站为同一地点
-		if(inNum == outNum){
+		if(inNum == outNum)
+		{
 			return sameStation(ci);
 			
 		}
 		//进出站为不同的地点
-		else{
-			return diffStation(ci, distance);
-			
-			
+		else
+		{
+			return diffStation(ci, distance);		
 		}
     }
-
-	public OpResult diffStation(ChargeCmdInfo ci, int distance) {
+    /**
+     * 输出不同站点票价情况
+     * @param ci 
+     * @param distance 距离
+     * @return 结果
+     */
+	public OpResult diffStation(ChargeCmdInfo ci, int distance)
+	{
 		//计算基本票价
 		int base_price;
 		if(distance<=3) base_price=2;
@@ -273,39 +306,47 @@ public class ChargeImpl {
 		else if(distance<=10) base_price=4;
 		else	base_price=5;
 		
-		if(ci.getCardType()==CardTypeEnum.A){ //5.不同地点，单程票，扣费成功/失败
+		if(ci.getCardType()==CardTypeEnum.A)
+		{ //5.不同地点，单程票，扣费成功/失败
 			
 			if(ci.getCardMoney()>=base_price)
 			{
 				this.getLogInfo(ci, ci.getCardMoney(), true);
 				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
-			}else
+			}
+			else
 			{
 				this.getLogInfo(ci, 0, false);
 				return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
 			}
 		}
-		else{ 
-			if((ci.getInHour()>=7 && ci.getInHour()<9) || (ci.getInHour()*60+ci.getInMinute()>=16*60+30 && ci.getInHour()*60+ci.getInMinute()<18*60+30)){
+		else
+		{ 
+			if((ci.getInHour()>=7 && ci.getInHour()<9) || (ci.getInHour()*60+ci.getInMinute()>=16*60+30 && ci.getInHour()*60+ci.getInMinute()<18*60+30))
+			{
 				//6.不同地点，非单程票，进站时间为[7:00,9:00）、[16:30,18:30)时，无任何优惠
 				int remain=ci.getCardMoney()-base_price;
 				return return_result(remain,base_price,ci);
 			}
-			else if((ci.getInHour()>=10 && ci.getInHour()<11) || (ci.getInHour()>=15 && ci.getInHour()<16)){
+			else if((ci.getInHour()>=10 && ci.getInHour()<11) || (ci.getInHour()>=15 && ci.getInHour()<16))
+			{
 				//7.不同地点，非单程票，进站时间为[10:00,11:00）、[15:00,16:00）时，5折优惠
 				int discount_price=(int) Math.floor(0.5*base_price);
 				int remain=ci.getCardMoney()-discount_price;
 				return return_result(remain,discount_price,ci);
 				
 			}
-			else{
-				if(ci.getCardType()==CardTypeEnum.B){
+			else
+			{
+				if(ci.getCardType()==CardTypeEnum.B)
+				{
 					//8.不同地点，老年卡，正常时间，9折优惠
 					int discount_price=(int) Math.floor(0.9*base_price);
 					int remain=ci.getCardMoney()-discount_price;
 					return return_result(remain,discount_price,ci);
 				}
-				else{
+				else
+				{
 					//9.不同地点，普通卡，正常时间，无优惠
 					int remain=ci.getCardMoney()-base_price;
 					return return_result(remain,base_price,ci);
@@ -315,40 +356,53 @@ public class ChargeImpl {
 			
 		}
 	}
-
-	public OpResult sameStation(ChargeCmdInfo ci) {
+	/**
+	 * 输出相同站点的票价情况
+	 * @param ci
+	 * @return
+	 */
+	public OpResult sameStation(ChargeCmdInfo ci) 
+	{
 		int time_interval=(ci.getOutHour()-ci.getInHour())*60+ci.getOutMinute()-ci.getInMinute();
 		
-		if(time_interval<=30){
+		if(time_interval<=30)
+		{
 			
-			if(ci.getCardType()==CardTypeEnum.A){ 
+			if(ci.getCardType()==CardTypeEnum.A)
+			{ 
 				//1.同一地点，时间间隔<=30min，单程票，扣费成功
 				this.getLogInfo(ci, ci.getCardMoney(), true);
 				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
 			}
 			//2.同一地点，时间间隔<=30min，非单程票，扣费为0
 			this.getLogInfo(ci, 0, true);
-			if(ci.getCardMoney()>=20){
+			if(ci.getCardMoney()>=20)
+			{
 				return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),ci.getCardMoney());
 			}
 			return OpResult.createOpResult(ReturnCodeEnum.I12,ci.getCardNo(),ci.getCardMoney());
 			
 		}
-		else{
+		else
+		{
 			
-			if(ci.getCardType()==CardTypeEnum.A){ //3.同一地点，时间间隔>30min，单程票，扣费成功/失败
+			if(ci.getCardType()==CardTypeEnum.A)
+			{ //3.同一地点，时间间隔>30min，单程票，扣费成功/失败
 				
-				if(ci.getCardMoney()>=3){
+				if(ci.getCardMoney()>=3)
+				{
 					this.getLogInfo(ci, ci.getCardMoney(), true);
 					return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),0);
 					
 				}
-				else{
+				else
+				{
 					this.getLogInfo(ci, 0, false);
 					return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
 				}
 			}
-			else{//4.同一地点，时间间隔>30min，非单程票，扣费成功/提示余额不足/失败
+			else
+			{//4.同一地点，时间间隔>30min，非单程票，扣费成功/提示余额不足/失败
 				int remain=ci.getCardMoney()-3;
 				//this.getLogInfo(ci, 0, false);
 				return return_result(remain,3,ci);
@@ -362,16 +416,21 @@ public class ChargeImpl {
   //根据余额不同，返回不同的结果
     public OpResult return_result(int remain,int chargeMoney,ChargeCmdInfo ci) {
     	
-		if(remain>=20){
+		if(remain>=20)
+		{
 			this.getLogInfo(ci, chargeMoney, true);
 			return OpResult.createOpResult(ReturnCodeEnum.I11,ci.getCardNo(),remain);
 		}
-		else if(remain>=0){
+		else if(remain>=0)
+		{
 			this.getLogInfo(ci, chargeMoney, true);
 			return OpResult.createOpResult(ReturnCodeEnum.I12,ci.getCardNo(),remain);
-		}else{
+		}
+		else
+		{
 			this.getLogInfo(ci, 0, false);
-		}return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
+		}
+		return OpResult.createOpResult(ReturnCodeEnum.I13,ci.getCardNo(),ci.getCardMoney());
     }
     
     /**
@@ -380,15 +439,17 @@ public class ChargeImpl {
      * @param chargeMoney 收费钱
      * @param isCharged 是否收费成功
      */
-    public void getLogInfo(ChargeCmdInfo ci,int chargeMoney,boolean isCharged){
+    public void getLogInfo(ChargeCmdInfo ci,int chargeMoney,boolean isCharged)
+    {
     	
     	ChargeLogInfo cLogInfo = 
     			new ChargeLogInfo(ci.getCardNo(), ci.getInHour(),
     					ci.getInMinute(), ci.getInStation(), ci.getOutHour(),
     					ci.getOutMinute(), ci.getOutStation(), chargeMoney, isCharged);
     	if(list.size()<10)
+    	{
     		list.add(cLogInfo);
-    	
+    	}
     	
     }
     /**
@@ -403,7 +464,8 @@ public class ChargeImpl {
      * @return true or false;
      */
     public boolean timeAndCardNoJudge(int cardNo,int startHour, int startMin,
-            int endHour, int endMin){
+            int endHour, int endMin)
+    {
     	
     	if(cardNo <0 ||cardNo>9 || startHour<0 || startHour>23 || startMin<0 || startMin>59|| endHour<0 || endHour>23 || endMin<0 || endMin>59)
     		return true;
@@ -422,7 +484,8 @@ public class ChargeImpl {
      *
      * @return true or false;
      */ 
-    public boolean timeJudge(int startHour,int startMin,int endHour,int endMin){
+    public boolean timeJudge(int startHour,int startMin,int endHour,int endMin)
+    {
     	int newStartTime = normalizationTime(startHour,startMin);
 		int newEndTime = normalizationTime(endHour,endMin);
 		if(newStartTime>newEndTime)
@@ -440,7 +503,8 @@ public class ChargeImpl {
      *
      * @return true or false;
      */ 
-    public int normalizationTime(int hour,int minute){
+    public int normalizationTime(int hour,int minute)
+    {
     	return hour*60+minute;
     }
     
@@ -450,15 +514,20 @@ public class ChargeImpl {
      * @param mylist List<ChargeLogInfo>：程序的ArrayList
      *
      */
-    public void sortList(List<ChargeLogInfo> mylist){
-		Collections.sort(mylist, new Comparator<ChargeLogInfo>(){
+    public void sortList(List<ChargeLogInfo> mylist)
+    {
+		Collections.sort(mylist, new Comparator<ChargeLogInfo>()
+		{
 			
 			public int compare(ChargeLogInfo logInfo1,ChargeLogInfo logInfo2){
-				if(logInfo1.getCardNo() == logInfo2.getCardNo()){
+				if(logInfo1.getCardNo() == logInfo2.getCardNo())
+				{
     				Integer loginfo1OutTime = normalizationTime(logInfo1.getOutHour(),logInfo1.getOutMinute());
     				Integer loginfo2OutTime = normalizationTime(logInfo2.getOutHour(),logInfo2.getOutMinute());
     				return loginfo1OutTime.compareTo(loginfo2OutTime);
-				}else{
+				}
+				else
+				{
 					return Integer.valueOf(logInfo1.getCardNo()).compareTo(Integer.valueOf(logInfo2.getCardNo()));
 				}
 					
@@ -476,13 +545,16 @@ public class ChargeImpl {
      * 
      *  @return true or false;
      */
-    	public boolean handleCardNoEquals0(List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs,int startTime,int endTime){
+    	public boolean handleCardNoEquals0(List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs,int startTime,int endTime)
+    	{
 			boolean flag = true;
 			int i = 0;
-			for(ChargeLogInfo loginfo:mylist){
+			for(ChargeLogInfo loginfo:mylist)
+			{
 				//loginfo 对象的出站时间
 				int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
-				if(loginfoOutTime>= startTime && loginfoOutTime<= endTime){	
+				if(loginfoOutTime>= startTime && loginfoOutTime<= endTime)
+				{	
 					mylogs[i] = loginfo;
 					++i;
 					flag = false;	
@@ -502,14 +574,17 @@ public class ChargeImpl {
         *  @return true or false;
         *  
         */
-        public boolean handleCardNoEqualsElse(int cardNo,List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs,int startTime,int endTime){
+        public boolean handleCardNoEqualsElse(int cardNo,List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs,int startTime,int endTime)
+        {
     		boolean flag = true;
     		int i = 0;
-    		for(ChargeLogInfo loginfo:mylist){
+    		for(ChargeLogInfo loginfo:mylist)
+    		{
     			//loginfo 对象的出站时间
 				int loginfoCardNo = loginfo.getCardNo();
     			int loginfoOutTime = normalizationTime(loginfo.getOutHour(),loginfo.getOutMinute());
-    			if(loginfoCardNo == cardNo && loginfoOutTime>= startTime && loginfoOutTime<= endTime){	
+    			if(loginfoCardNo == cardNo && loginfoOutTime>= startTime && loginfoOutTime<= endTime)
+    			{	
     				mylogs[i] = loginfo;
     				++i;
     				flag = false;	
@@ -517,14 +592,6 @@ public class ChargeImpl {
     		}
        		return flag;
        	}    	
-
-
-
-
-
-
-
-
 
 
 /////////////////针对h命令，只对扣费成功的进行处理///////
@@ -539,11 +606,14 @@ public class ChargeImpl {
  * 
  *  @return true or false;
  */
-	public boolean H_handleCardNoEquals0(List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs){
+	public boolean H_handleCardNoEquals0(List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs)
+	{
 		boolean flag = true;
 		int i = 0;
-		for(ChargeLogInfo loginfo:mylist){
-			if(loginfo.isCharged()==true){	
+		for(ChargeLogInfo loginfo:mylist)
+		{
+			if(loginfo.isCharged()==true)
+			{	
 				mylogs[i] = loginfo;
 				++i;
 				flag = false;	
@@ -563,10 +633,12 @@ public class ChargeImpl {
     *  @return true or false;
     *  
     */
-    public boolean H_handleCardNoEqualsElse(int cardNo,List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs){
+    public boolean H_handleCardNoEqualsElse(int cardNo,List<ChargeLogInfo> mylist,ChargeLogInfo[] mylogs)
+    {
 		boolean flag = true;
 		int i = 0;
-		for(ChargeLogInfo loginfo:mylist){
+		for(ChargeLogInfo loginfo:mylist)
+		{
 			int loginfoCardNo = loginfo.getCardNo();
 			if(loginfoCardNo == cardNo && loginfo.isCharged()==true){	
 				mylogs[i] = loginfo;
