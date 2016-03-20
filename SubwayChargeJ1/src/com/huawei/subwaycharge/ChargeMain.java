@@ -1,7 +1,7 @@
 package com.huawei.subwaycharge;
 
 import com.huawei.exam.Command;
-import com.huawei.exam.ExamCommand;
+//import com.huawei.exam.ExamCommand;
 import com.huawei.exam.ExamServer;
 
 /**

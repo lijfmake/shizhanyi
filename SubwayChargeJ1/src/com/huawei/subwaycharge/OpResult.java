@@ -1,7 +1,7 @@
 package com.huawei.subwaycharge;
 
-import com.huawei.exam.ReturnCodeEnum;
-import com.huawei.exam.ReturnCodeRst;
+//import com.huawei.exam.ReturnCodeEnum;
+//import com.huawei.exam.ReturnCodeRst;
 
 /**
  * <p>Title: 本类供考生调用，不允许更改</p>
@@ -55,6 +55,20 @@ public abstract class OpResult {
     public static OpResult createOpResult(ReturnCodeEnum returnCode, ChargeLogInfo[] logs) {
         return new ReturnCodeRst(returnCode, logs);
     }
+    
+    /**
+     * 创建结果对象，给客户端返回简单结果信息，查询扣费日志命令调用
+     *
+     *
+     * @param errCode ReturnCodeEnum：返回码枚举
+     * @param logs ChargeLogInfo[]：扣费日志信息
+     *
+     * @return OpResult：返回结果对象
+     */
+    public static OpResult createOpResult(ReturnCodeEnum returnCode, ChargeLogInfo[] logs,CardTypeEnum cate) {
+        return new ReturnCodeRst(returnCode, logs,cate);
+    } 
+    
 
     public abstract String toString();
 }

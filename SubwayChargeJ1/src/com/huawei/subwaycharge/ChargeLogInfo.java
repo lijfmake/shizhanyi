@@ -40,6 +40,18 @@ public class ChargeLogInfo {
         this.ChargeCount = chargeCount;
         this.isCharged = isCharged;
     }
+    
+    public ChargeLogInfo(ChargeCmdInfo ci, int ChargeCount, boolean isCharged) {
+    	this.cardNo = ci.getCardNo();
+    	this.InHour = ci.getInHour();
+    	this.InMinute = ci.getInMinute();
+    	this.InStation = ci.getInStation();
+    	this.OutHour = ci.getOutHour();
+    	this.OutMinute = ci.getOutMinute();
+    	this.OutStation = ci.getOutStation();
+    	this.ChargeCount = ChargeCount;
+    	this.isCharged = isCharged;
+    }
 
     public int getCardNo() {
         return cardNo;
