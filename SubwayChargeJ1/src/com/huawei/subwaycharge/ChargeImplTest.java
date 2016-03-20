@@ -1,3 +1,4 @@
+
 package com.huawei.subwaycharge;
 
 import static org.junit.Assert.*;
@@ -310,3 +311,4 @@ public class ChargeImplTest {
 				OpResult.createOpResult(ReturnCodeEnum.I11,1,98).toString());
 	}
 }
+
