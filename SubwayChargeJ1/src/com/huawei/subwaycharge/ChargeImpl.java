@@ -151,8 +151,8 @@ public class ChargeImpl {
 				}		
 				ChargeLogInfo[] logs = new ChargeLogInfo[i];
 				
-				boolean flag = handleCardNoEquals0(list,logs,newStartTime,newEndTime); 	
-				if(flag)
+				boolean cardFlag = handleCardNoEquals0(list,logs,newStartTime,newEndTime); 	
+				if(cardFlag)
 					return OpResult.createOpResult(ReturnCodeEnum.E21);
 				return OpResult.createOpResult(ReturnCodeEnum.I20,logs);
 				}else{
@@ -236,14 +236,14 @@ public class ChargeImpl {
 		//计算两地之间的距离
 		
 		int dis[]={4,1,3,2,6},distance=0;
-		int in1=Integer.parseInt(ci.getInStation().substring(1));
-		int in2=Integer.parseInt(ci.getOutStation().substring(1));
-		if(in1>in2){
-			int int_temp=in1;
-			in1=in2;
-			in2=int_temp;
+		int inNum=Integer.parseInt(ci.getInStation().substring(1));
+		int outNum=Integer.parseInt(ci.getOutStation().substring(1));
+		if(inNum>outNum){
+			int int_temp=inNum;
+			inNum=outNum;
+			outNum=int_temp;
 		}
-		for(int i=in1-1;i<in2-1;i++){
+		for(int i=inNum-1;i<outNum-1;i++){
 			distance=distance+dis[i];
 		}
     	
@@ -253,7 +253,7 @@ public class ChargeImpl {
 //		CardTypeEnum C=CardTypeEnum.C;
 		
 		//进出站为同一地点
-		if(in1 == in2){
+		if(inNum == outNum){
 			return sameStation(ci);
 			
 		}
